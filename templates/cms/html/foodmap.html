@@ -1,0 +1,94 @@
+{% load staticfiles %}
+<html lang="ja">
+<head>
+    <script type="text/javascript" src="{% static 'js/foodmap.js' %}"></script>
+
+    <script type="text/javascript" src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+    <script type="text/javascript"
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpsXzvheMG7KU-fb64ldIQ_eOPzE2B88o"></script>
+
+    <script type="text/javascript"
+            src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>
+
+    <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <script src="text/javascript" src="{% static 'js/bootstrap.js' %}"></script>
+    <script src="text/javascript" src="{% static 'js/bootstrap-slider.js' %}"></script>
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <script src="{% static 'js/getmdl-select.min.js' %}"></script>
+    <link rel="{% static 'css/getmdl-select.min.css' %}">
+    <link rel="{% static 'css/bootstrap-slider.css' %}">
+    <link rel="{% static 'css/bootstrap.css' %}">
+    <link rel="{% static 'css/load.css' %}">
+
+    <title>推薦システム</title>
+</head>
+<body onload="init()" style="overflow: hidden">
+<div id="background"
+     style="z-index: 10;position: absolute;top: 0;bottom: 0;left: 0;right: 0;display: none;background-color: white;opacity: 0.5"></div>
+<img src="{% static 'img/load.gif' %}"
+     style="z-index: 15; width:5%;position: absolute;margin: auto;top: 0;bottom: 0;left: 0;right: 0;display: none" id="load">
+<div style="width: 100%;height: 100%">
+    <div align="center" style="float: left; width:19%;height: 100%; border-right: 1px solid #CCCCCC;background: #f1f1f1"
+         id="navi1">
+        <div style="width: 80%;margin-top: 15%"
+             class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth">
+            <input class="mdl-textfield__input" type="text" id="category" value="指定なし" onchange="search()">
+            <label for="category" class="mdl-textfield__label">カテゴリ</label>
+            <ul for="category" class="mdl-menu mdl-menu--bottom-left mdl-js-menu" id="list" style="overflow:auto;">
+                <li class="mdl-menu__item">指定なし</li>
+                <li class="mdl-menu__item">レストラン</li>
+                <li class="mdl-menu__item">ラーメン</li>
+                <li class="mdl-menu__item">カフェ・喫茶</li>
+                <li class="mdl-menu__item">パン・スイーツ</li>
+                <li class="mdl-menu__item">バー・お酒</li>
+                <li class="mdl-menu__item">旅館・オーベルジュ</li>
+                <li class="mdl-menu__item">その他</li>
+            </ul>
+        </div>
+
+        <div style="width: 80%" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="number" id="price" onchange="search()">
+            <label class="mdl-textfield__label" for="sample1">予算</label>
+        </div>
+        <div style="margin-top: 10px">
+            地域発祥の料理
+            <br/>
+            低 <input type="range" min="0" max="10" id="birth" style="width:70%" onchange="search()"> 高
+            <br/>
+        </div>
+        <div style="margin-top: 10px">
+            昔からある店舗
+            <br/>
+            低 <input type="range" min="0" max="10" id="old-shop" style="width:70%" onchange="search()"> 高
+            <br/>
+        </div>
+        <div style="margin-top: 10px">
+            地域のみで食べられる料理
+            <br/>
+            低 <input type="range" min="0" max="10" id="only" style="width:70%" onchange="search()"> 高
+            <br/>
+        </div>
+        <div style="margin-top: 10px">
+            人気のある料理
+            <br/>
+            低 <input type="range" min="0" max="10" id="popular" style="width:70%" onchange="search()"> 高
+            <br/>
+        </div>
+        <br/>
+        <br/>
+    </div>
+
+    <div align="center" style="float: left; width:40%;display: block;" id="navi3">
+        <div id="result1"
+             style="width: 50%;float: left;height: 100%; border-right: 1px solid #CCCCCC;box-sizing:border-box;"></div>
+        <div id="result2" style="width: 50%;float: left; height: 100%;"></div>
+    </div>
+
+
+    <div id="map" style="width: auto; height: 100%;"></div>
+
+</div>
+</body>
+</html>
